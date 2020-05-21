@@ -9,22 +9,22 @@ import time
 # specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
 
 # Open the input movie file
-input_movie = cv2.VideoCapture("./videos/JUAREZ Y PADRE MIER 1603.avi")
+input_movie = cv2.VideoCapture("./videos/2020-05-16 12-53-05 PTZ12301-1.avi")
 length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
 
 # Create an output movie file (make sure resolution/frame rate matches input video!)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-output_movie = cv2.VideoWriter('./outputs/output.avi', fourcc, 150.00, (2592, 1944))
+output_movie = cv2.VideoWriter('output.avi', fourcc, 150.00, (2592, 1944))
 
 # Load some sample pictures and learn how to recognize them.
-lmm_image = face_recognition.load_image_file("pics/demo1.png")
-lmm_face_encoding = face_recognition.face_encodings(lmm_image)[0]
+# lmm_image = face_recognition.load_image_file("./pics/demo1.png")
+# lmm_face_encoding = face_recognition.face_encodings(lmm_image)[0]
 
 # al_image = face_recognition.load_image_file("alex-lacamoire.png")
 # al_face_encoding = face_recognition.face_encodings(al_image)[0]
 
 known_faces = [
-    lmm_face_encoding,
+    # lmm_face_encoding,
     # al_face_encoding
 ]
 
@@ -39,6 +39,7 @@ frameBatch = []
 while True:
     # Grab a single frame of video
     ret, frame = input_movie.read()
+    
     frame_number += 1
     
     frameBatch.append(frame)
@@ -70,9 +71,10 @@ while True:
 
             # If you had more than 2 faces, you could make this logic a lot prettier
             # but I kept it simple for the demo
-            name = None
-            if match[0]:
-                name = "Demo numero uno"
+            name = "Persona"
+            # name = None
+            # if match[0]:
+            #     name = "Demo numero uno"
             # elif match[1]:
             #     name = "Alex Lacamoire"
 
@@ -100,7 +102,7 @@ while True:
             # Write the resulting image to the output video file
             print("Writing frame {} / {}".format(frame_number, length))
             # output_movie.write(frame)
-            cv2.imwrite("./outputs/frame%d.jpg" % frame_number, frame)
+            cv2.imwrite("frame%d.jpg" % frame_number, frame)
             
         frameBatch = []
         print('cleared batch')
