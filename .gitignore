@@ -1,8 +1,5 @@
-videos/
-pics/
-
 .vscode/
-
-output.avi
-
-outputs/
+examples/videos/
+examples/pics/
+examples/output.avi
+examples/outputs/

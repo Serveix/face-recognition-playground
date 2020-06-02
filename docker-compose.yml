@@ -7,8 +7,8 @@ services:
     working_dir: /face_recognition/examples
     build:
       context: .
-      dockerfile: Dockerfile.gpu 
-    command: python3 -u test1.py
+      # dockerfile: Dockerfile.gpu 
+    command: python3 -u starter.py
     volumes:
       - ./:/face_recognition
-    runtime: nvidia
+    # runtime: nvidia

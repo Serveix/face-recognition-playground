@@ -13,14 +13,14 @@ import numpy as np
 
 # Esto se puede cambiar por video de una webcam o video streaming de un rtsp
 # input_movie = cv2.VideoCapture("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov")
-input_movie = cv2.VideoCapture("http://192.168.0.9:8080/video/mjpeg")
+input_movie = cv2.VideoCapture("http://192.168.0.11:8080/video/mjpeg")
 
 length = int(input_movie.get(cv2.CAP_PROP_FRAME_COUNT))
 
 
 # Output video
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-output_movie = cv2.VideoWriter('outputs/output.avi', fourcc, 29.97, (640, 360))
+# fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# output_movie = cv2.VideoWriter('outputs/output.avi', fourcc, 29.97, (640, 360))
 
 # Cargar imagen(es) para reconocer en el video
 matthew_face = face_recognition.load_image_file("pics/matthew.jpg")
@@ -73,7 +73,7 @@ while True:
     # Procesar cada X frames, nos ayuda a aumentar velocidad
     # y con un framerate de 150.0, no importa mucho
     if frames_not_processed == process_frame_every:
-        face_locations = face_recognition.face_locations(rgb_small_frame)
+        face_locations = face_recognition.face_locations(rgb_small_frame, model="cnn")
 
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
@@ -96,8 +96,6 @@ while True:
 
             face_names.append(name)
     
-
-    # Logica para procesar solo cada X frames
     if frames_not_processed == process_frame_every: 
         frames_not_processed = 0
     else:
@@ -124,11 +122,13 @@ while True:
 
 
     # Display the resulting image
-    cv2.imshow('Video', frame)
+    # cv2.imshow('Video', frame)
 
     # Hit 'q' on the keyboard to quit!
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     break
+
+    print("Writing frame {}/{}".format(frame_number, length))
 
     # Write the resulting image to the output video file
     # print("Writing frame {} / {}".format(frame_number, length))
