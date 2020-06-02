@@ -29,6 +29,15 @@ apt-cache policy docker-ce
 ```
 sudo apt install docker-ce
 ```
+### Docker group permissions
+```
+sudo groupadd docker
+```
+```
+sudo usermod -aG docker $USER
+```
+Then logout and log back in!
+
 ## Run the program
 ```
 docker-compose up
